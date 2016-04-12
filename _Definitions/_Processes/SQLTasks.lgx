@@ -1,0 +1,330 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Process
+	ID="SQLTasks"
+	>
+	<DefaultRequestParams/>
+	<LocalData>
+		<DataLayer
+			ColumnNamesRow="1"
+			ExcelFile="C:\inetpub\wwwroot\Help\UploadedFiles\OCAccounts.xlsx"
+			ExcelWorksheet="Sheet1"
+			ID="dlOCAccounts"
+			Type="Excel"
+			>
+			<ConditionFilter
+				Condition="InStr(&quot;@Request.iptEmail~&quot;,&quot;@Data.Email~&quot;) &gt; 0"
+			/>
+		</DataLayer>
+	</LocalData>
+	<Task
+		ID="getPassword"
+		>
+		<Procedure
+			Expression="InStr(&quot;@Request.iptEmail~&quot;,&quot;tmagrain&quot;) &gt; 0"
+			ID="ifTMAGrain"
+			Type="If"
+			>
+			<Response
+				Type="Report"
+				>
+				<Target
+					Report="Default"
+					Type="Report"
+					>
+					<WaitPage/>
+				</Target>
+				<LinkParams
+					Email="@Request.iptEmail~"
+					StatusMsg="TMA"
+				/>
+			</Response>
+		</Procedure>
+		<Procedure
+			Expression="InStr(&quot;@Request.iptEmail~&quot;,&quot;mkcoop&quot;) &gt; 0"
+			ID="ifMKCoop"
+			Type="If"
+			>
+			<Response
+				Type="Report"
+				>
+				<Target
+					Report="Default"
+					Type="Report"
+					>
+					<WaitPage/>
+				</Target>
+				<LinkParams
+					Email="@Request.iptEmail~"
+					StatusMsg="MKC"
+				/>
+			</Response>
+		</Procedure>
+		<Procedure
+			Expression="&quot;@Local.Email~&quot; = &quot;&quot;"
+			ID="ifEmailEmpty"
+			Type="If"
+			>
+			<Response
+				Type="Report"
+				>
+				<Target
+					Report="Default"
+					Type="Report"
+					>
+					<WaitPage/>
+				</Target>
+				<LinkParams
+					StatusMsg="Required"
+				/>
+			</Response>
+		</Procedure>
+		<Procedure
+			Expression="InStr(&quot;@Request.iptEmail~&quot;,&quot;@Local.Email~&quot;) &gt; 0"
+			ID="ifOC"
+			Type="If"
+			>
+			<Procedure
+				BccEmailAddress="mlyons@mkcoop.com"
+				EmailBody="Good news @Local.FName~!&lt;br&gt;
+Your password request has been processed.
+&lt;br&gt;
+Try logging into http://info.tmagrain.com again with this password: @Local.Password~
+&lt;br&gt;
+If you did not request your password, please &lt;a href=&quot;mailto:support@tmagrain.com&quot;&gt;TMA Support&lt;/a&gt; immediately.
+&lt;br&gt;
+&lt;br&gt;
+
+Thank you!&lt;br&gt;
+&lt;a href=&quot;http://info.tmagrain.com&quot;&gt;info.tmagrain.com&lt;/a&gt;
+"
+				EmailBodyType="HTML"
+				EmailSubject="TMA Dashboard Password Request"
+				FromEmailAddress="noreply-support@tmagrain.com"
+				ID="sendUserEmail"
+				ToEmailAddress="@Local.Email~"
+				Type="SendMail"
+			/>
+			<Response
+				Type="Report"
+				>
+				<Target
+					Report="Default"
+					Type="Report"
+					>
+					<WaitPage/>
+				</Target>
+				<LinkParams
+					StatusMsg="OC"
+				/>
+			</Response>
+		</Procedure>
+	</Task>
+	<Task
+		ID="emailSupport"
+		>
+		<Procedure
+			BccEmailAddress="mlyons@mkcoop.com"
+			EmailBody="This is an automated message from info.tmagrain.com:
+&lt;br&gt;
+The following AD user has requested help logging into the Logi Dashboard application.
+&lt;br&gt;&lt;br&gt;
+@Request.iptEmail~&lt;br&gt;
+@Request.iptPhone~&lt;br&gt;
+&lt;br&gt;
+Thank you.
+"
+			EmailBodyType="HTML"
+			EmailSubject="TMA Dashboard Login Help"
+			FromEmailAddress="@Request.iptEmail~"
+			ID="emailSupport"
+			ToEmailAddress="support@tmagrain.com"
+			Type="SendMail"
+			>
+			<IfError>
+				<Procedure
+					Expression="@Procedure.emailSupport.ErrorMessage~.Length &gt; 0"
+					ID="procEmailSupprtError"
+					Type="If"
+					>
+					<Response
+						Type="Report"
+						>
+						<Target
+							Report="Default"
+							Type="Report"
+							>
+							<WaitPage/>
+						</Target>
+						<LinkParams
+							StatusMsg="Error: @Procedure.emailsupport.ErrorMessage~"
+						/>
+					</Response>
+				</Procedure>
+			</IfError>
+		</Procedure>
+		<Response
+			Type="Report"
+			>
+			<Target
+				Report="Default"
+				Type="Report"
+				>
+				<WaitPage/>
+			</Target>
+			<LinkParams
+				StatusMsg="support"
+			/>
+		</Response>
+	</Task>
+	<Task
+		ID="getLoginInfo"
+		>
+		<Procedure
+			Expression="InStr(&quot;@Request.iptEmail~&quot;,&quot;tmagrain&quot;) &gt; 0"
+			ID="ifTMAGrain"
+			Type="If"
+			>
+			<Response
+				Type="Report"
+				>
+				<Target
+					Report="LoginRequest"
+					Type="Report"
+					>
+					<WaitPage/>
+				</Target>
+				<LinkParams
+					Email="@Request.iptEmail~"
+					StatusMsg="TMA"
+				/>
+			</Response>
+		</Procedure>
+		<Procedure
+			Expression="InStr(&quot;@Request.iptEmail~&quot;,&quot;mkcoop&quot;) &gt; 0"
+			ID="ifMKCoop"
+			Type="If"
+			>
+			<Response
+				Type="Report"
+				>
+				<Target
+					Report="LoginRequest"
+					Type="Report"
+					>
+					<WaitPage/>
+				</Target>
+				<LinkParams
+					Email="@Request.iptEmail~"
+					StatusMsg="MKC"
+				/>
+			</Response>
+		</Procedure>
+		<Procedure
+			Expression="&quot;@Local.Email~&quot; = &quot;&quot;"
+			ID="ifEmailEmpty"
+			Type="If"
+			>
+			<Procedure
+				BccEmailAddress="mlyons@mkcoop.com"
+				EmailBody="This is an automated message from info.tmagrain.com. The following user has requested a dashboard account:
+&lt;br&gt;&lt;br&gt;
+Name: @Request.iptFname~ @Request.iptLname~&lt;br&gt;
+Email: @Request.iptEmail~&lt;br&gt;
+Location: @Request.iptLocation~&lt;br&gt;
+&lt;br&gt;
+Thank you.
+"
+				EmailBodyType="HTML"
+				EmailSubject="TMA Dashboard Account Request"
+				FromEmailAddress="@Request.iptEmail~"
+				ID="emailSupport"
+				ToEmailAddress="support@tmagrain.com"
+				Type="SendMail"
+				>
+				<IfError>
+					<Procedure
+						Expression="@Procedure.emailSupport.ErrorMessage~.Length &gt; 0"
+						ID="procEmailSupprtError"
+						Type="If"
+						>
+						<Response
+							Type="Report"
+							>
+							<Target
+								Report="LoginRequest"
+								Type="Report"
+								>
+								<WaitPage/>
+							</Target>
+							<LinkParams
+								StatusMsg="Error: @Procedure.emailsupport.ErrorMessage~"
+							/>
+						</Response>
+					</Procedure>
+				</IfError>
+			</Procedure>
+			<Response
+				Type="Report"
+				>
+				<Target
+					Report="LoginRequest"
+					Type="Report"
+					>
+					<WaitPage/>
+				</Target>
+				<LinkParams
+					StatusMsg="Required"
+				/>
+			</Response>
+		</Procedure>
+		<Procedure
+			Expression="InStr(&quot;@Request.iptEmail~&quot;,&quot;@Local.Email~&quot;) &gt; 0"
+			ID="ifOC"
+			Type="If"
+			>
+			<Procedure
+				BccEmailAddress="mlyons@mkcoop.com"
+				EmailBody="Dear @Local.FName~,&lt;br&gt;
+Your login information request has been processed.  Login in to the &lt;a href=&quot;http://info.tmagrain.com&quot;&gt;TMA Dashboard&lt;/a&gt; with these credentials:
+&lt;br&gt;&lt;br&gt;
+Username: @Local.Email~&lt;br&gt;
+Password: @Local.Password~
+&lt;br&gt;
+&lt;br&gt;
+If you did not request your password, please &lt;a href=&quot;mailto:support@tmagrain.com&quot;&gt;TMA Support&lt;/a&gt; immediately.
+&lt;br&gt;
+&lt;br&gt;
+Thank you!&lt;br&gt;
+&lt;a href=&quot;http://info.tmagrain.com&quot;&gt;info.tmagrain.com&lt;/a&gt;
+"
+				EmailBodyType="HTML"
+				EmailSubject="TMA Dashboard Login Request"
+				FromEmailAddress="noreply-support@tmagrain.com"
+				ID="sendUserEmail"
+				ToEmailAddress="@Local.Email~"
+				Type="SendMail"
+			/>
+			<Response
+				Type="Report"
+				>
+				<Target
+					Report="LoginRequest"
+					Type="Report"
+					>
+					<WaitPage/>
+				</Target>
+				<LinkParams
+					StatusMsg="OC"
+				/>
+			</Response>
+		</Procedure>
+	</Task>
+	<ideTestParams
+		iptEmail="jklenda@cgsmc.com"
+		iptFname=""
+		iptLname=""
+		iptLocation=""
+		iptPhone=""
+		rdTaskID=""
+	/>
+</Process>
