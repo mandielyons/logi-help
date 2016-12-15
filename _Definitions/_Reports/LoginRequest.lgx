@@ -43,39 +43,6 @@
 										Condition="InStr(&quot;@Request.StatusMsg~&quot;,&quot;Required&quot;) &gt; 0"
 									/>
 								</Label>
-								<Remark>
-									<Label
-										Caption="support@tmagrain.com"
-										Class="ThemeHidden"
-										ID="lblEmail2"
-										>
-										<Action
-											Type="Link"
-											>
-											<Target
-												ID="lnkSupport"
-												Link="mailto:support@tmagrain.com"
-												Type="Link"
-											/>
-										</Action>
-										<ConditionalClass
-											Class="ThemeTextPositive"
-											Condition="InStr(&quot;@Request.StatusMsg~&quot;,&quot;Required&quot;) &gt; 0"
-										/>
-									</Label>
-								</Remark>
-								<Remark>
-									<Label
-										Caption=" detailing your issue."
-										Class="ThemeHidden"
-										ID="lblEmail3"
-										>
-										<ConditionalClass
-											Class="ThemeTextPositive"
-											Condition="InStr(&quot;@Request.StatusMsg~&quot;,&quot;Required&quot;) &gt; 0"
-										/>
-									</Label>
-								</Remark>
 								<Label
 									Caption="Your message has been sent.  Our support team will contact you shortly."
 									Class="ThemeHidden"
@@ -157,21 +124,6 @@
 									/>
 								</Label>
 								<LineBreak/>
-								<Remark>
-									<Label
-										Caption="If you need further assistance, enter your phone number and email support below."
-										Class="ThemeHidden"
-										>
-										<ConditionalClass
-											Class="ThemeTextPositive"
-											Condition="InStr(&quot;@Request.StatusMsg~&quot;,&quot;TMA&quot;) &gt; 0"
-										/>
-										<ConditionalClass
-											Class="ThemeErrorText"
-											Condition="InStr(&quot;@Request.StatusMsg~&quot;,&quot;MKC&quot;) &gt; 0"
-										/>
-									</Label>
-								</Remark>
 								<LineBreak/>
 							</ResponsiveColumn>
 						</ResponsiveRow>
@@ -254,48 +206,6 @@
 										/>
 									</Button>
 								</Division>
-								<Remark>
-									<Division
-										Class="ThemeHidden"
-										ID="divPhone"
-										>
-										<ConditionalClass
-											Condition="InStr(&quot;@Request.StatusMsg~&quot;,&quot;Windows&quot;) &gt; 0"
-										/>
-										<InputText
-											Caption="Phone:"
-											DefaultValue="@Request.Phone~"
-											Format="&quot;(###) ###-####&quot;"
-											ID="iptPhone"
-											InputMaxLength="10"
-											>
-											<Validation
-												ErrorMsg="Enter the best phone number for us to reach you."
-												Type="Required"
-											/>
-										</InputText>
-										<LineBreak/>
-										<Button
-											Caption="Email Support"
-											Class="ThemeHidden"
-											ID="btnEmailSupport"
-											>
-											<Action
-												ID="emailSupport"
-												Process="SQLTasks"
-												TaskID="emailSupport"
-												Type="Process"
-												Validate="True"
-												>
-												<WaitPage/>
-												<LinkParams/>
-											</Action>
-											<ConditionalClass
-												Condition="InStr(&quot;@Request.StatusMsg~&quot;,&quot;Windows&quot;) &gt; 0"
-											/>
-										</Button>
-									</Division>
-								</Remark>
 								<LineBreak/>
 								<LineBreak/>
 							</ResponsiveColumn>
