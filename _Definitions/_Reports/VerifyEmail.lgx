@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Report
-	Caption="Forgot Password"
-	ID="Default"
+	Caption="Verify Email Address"
+	ID="VerifyEmail"
 	SecurityReportRightID="MKC"
 	>
 	<IncludeSharedElement
@@ -32,7 +32,6 @@
 
 $( document ).ready(function() {
     //$(&quot;#reset-panel&quot;).hide();
-	makeid();
 });
 
 function makeid()
@@ -55,17 +54,13 @@ function makeid()
 					HtmlDiv="True"
 					ID="forgot-panel"
 					>
-					<ConditionalClass
-						Class="ThemeHidden"
-						Condition="InStr(&quot;@Request.StatusMsg~&quot;,&quot;OC&quot;) &gt; 0"
-					/>
 					<Division
 						Class="panel-heading"
 						HtmlDiv="True"
 						ID="panel-heading"
 						>
 						<Label
-							Caption="Forgot Password?"
+							Caption="Verify Email Address"
 						/>
 					</Division>
 					<Division
@@ -81,6 +76,7 @@ function makeid()
 									ID="divEmail"
 									>
 									<InputHidden
+										DefaultValue="@Request.Code~"
 										ID="iptVerify"
 									/>
 									<Label
@@ -133,37 +129,41 @@ function makeid()
 										/>
 									</Label>
 									<Label
-										Caption="Email not found. Please enter your coop email address."
-										Class="ThemeHidden"
+										Caption="Check your email for a message with the subject line TMA Dashboard Account Email Validation. Please enter the 5 digit verification code from your email."
+										Class="ThemeErrorText"
 										ID="lblError"
-										>
-										<ConditionalClass
-											Class="ThemeErrorText"
-											Condition="InStr(&quot;@Request.StatusMsg~&quot;,&quot;Error&quot;) &gt; 0"
-										/>
-									</Label>
+									/>
 									<LineBreak/>
-									<InputEmail
-										Caption="Email:"
-										ID="iptEmail"
-										InputMaxLength="120"
-										InputSize="100px"
-										MultipleAddresses="False"
-										Placeholder="Enter your coop email address to begin..."
-										>
-										<Validation
-											ErrorMsg="Please enter an email address."
-											Type="Required"
-										/>
-										<Validation
-											ErrorMsg="Please enter a valid email address."
-											Type="Email"
-										/>
-										<ConditionalClass
-											Class="ThemeHidden"
-											Condition="InStr(&quot;@Request.StatusMsg~&quot;,&quot;TMA&quot;) &gt; 0 or InStr(&quot;@Request.StatusMsg~&quot;,&quot;MKC&quot;) &gt; 0  "
-										/>
-									</InputEmail>
+									<InputText
+										Caption="Verification Code:"
+										ID="iptCode"
+										InputMaxLength="5"
+										InputSize="50px"
+										Placeholder="Enter the verification code from your email..."
+									/>
+									<Remark>
+										<InputEmail
+											Caption="Email:"
+											ID="iptEmail"
+											InputMaxLength="120"
+											InputSize="100px"
+											MultipleAddresses="False"
+											Placeholder="Enter your coop email address here..."
+											>
+											<Validation
+												ErrorMsg="Please enter an email address."
+												Type="Required"
+											/>
+											<Validation
+												ErrorMsg="Please enter a valid email address."
+												Type="Email"
+											/>
+											<ConditionalClass
+												Class="ThemeHidden"
+												Condition="InStr(&quot;@Request.StatusMsg~&quot;,&quot;TMA&quot;) &gt; 0 or InStr(&quot;@Request.StatusMsg~&quot;,&quot;MKC&quot;) &gt; 0  "
+											/>
+										</InputEmail>
+									</Remark>
 									<LineBreak/>
 									<Button
 										Caption="Submit"
@@ -172,7 +172,7 @@ function makeid()
 										<Action
 											ID="SQLTasks"
 											Process="SQLTasks"
-											TaskID="getPassword"
+											TaskID="verifyEmail"
 											Type="Process"
 											Validate="True"
 											>
@@ -215,6 +215,7 @@ function makeid()
 		SharedElementID="shrFooter"
 	/>
 	<ideTestParams
+		Code=""
 		StatusMsg=""
 	/>
 </Report>

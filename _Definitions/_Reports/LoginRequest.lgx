@@ -211,29 +211,29 @@
 							</ResponsiveColumn>
 							<ResponsiveColumn/>
 						</ResponsiveRow>
-						<ResponsiveRow>
-							<ResponsiveColumn>
-								<LineBreak
-									LineCount="2"
-								/>
-								<Label
-									Caption="Back to Login"
-									>
-									<Action
-										ID="lnkDashboard1"
-										Type="Link"
-										>
-										<Target
-											ID="lnkTMAGrain1"
-											Link="http://info.tmagrain.com"
-											Type="Link"
-										/>
-									</Action>
-								</Label>
-							</ResponsiveColumn>
-						</ResponsiveRow>
 					</Division>
 				</Division>
+			</ResponsiveColumn>
+		</ResponsiveRow>
+		<ResponsiveRow>
+			<ResponsiveColumn>
+				<LineBreak
+					LineCount="2"
+				/>
+				<Label
+					Caption="Back to Login"
+					>
+					<Action
+						ID="lnkDashboard1"
+						Type="Link"
+						>
+						<Target
+							ID="lnkTMAGrain1"
+							Link="http://info.tmagrain.com"
+							Type="Link"
+						/>
+					</Action>
+				</Label>
 			</ResponsiveColumn>
 		</ResponsiveRow>
 		<IncludeScript

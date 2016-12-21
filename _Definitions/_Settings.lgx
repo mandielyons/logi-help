@@ -12,7 +12,7 @@
 	<General
 		DoctypeDeclaration="Html5"
 		LogErrors="@Function.AppPhysicalPath~\_ErrorLogs"
-		rdDebuggerStyle="NoDetail"
+		rdDebuggerStyle="DebuggerLinks"
 		RedirectErrorUrl="rdPage.aspx?rdReport=_Layout.Error"
 		RepoFriendly="True"
 	/>
@@ -48,15 +48,17 @@
 		<Note
 			Note="then select it and run its Metadata Builder wizard."
 		/>
-		<Connection
-			ID="connLogiDBDev"
-			SqlServer="DEVELOPMENT"
-			SqlServerDatabase="TMA_COOP_USERS"
-			SqlServerPassword="Log1#Admin"
-			SqlServerPort=""
-			SqlServerUser="logi_admin"
-			Type="SqlServer"
-		/>
+		<Remark>
+			<Connection
+				ID="connLogiDB"
+				SqlServer="DEVELOPMENT"
+				SqlServerDatabase="TMA_COOP_USERS"
+				SqlServerPassword="Log1#Admin"
+				SqlServerPort=""
+				SqlServerUser="logi_admin"
+				Type="SqlServer"
+			/>
+		</Remark>
 		<Connection
 			ID="connSMTP"
 			SmtpServer="relay.mkcoop.com"
@@ -64,7 +66,7 @@
 		/>
 		<Connection
 			ID="connLogiDB"
-			SqlServer="sqlsvr1"
+			SqlServer="SQLPROD1"
 			SqlServerDatabase="TMA_COOP_USERS"
 			SqlServerPassword="integr8!"
 			SqlServerPort=""
