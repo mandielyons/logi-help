@@ -5,12 +5,35 @@
 	<DefaultRequestParams/>
 	<LocalData>
 		<DataLayer
-			ExcelFile="C:\inetpub\wwwroot\Help\UploadedFiles\OCAccounts.xlsx"
-			ID="dlOCAccounts"
-			Type="Excel"
+			ConnectionID="connLogiDB"
+			ID="SQLDataLayer1"
+			Source="Select *
+From USERS
+Where USERS.ACTIVE = 1"
+			Type="SQL"
 			>
+			<Join
+				ID="JoinSqlToExcelUsers"
+				JoinType="LeftOuterJoin"
+				SortLeftSide="True"
+				SortRightSide="True"
+				>
+				<DataLayer
+					ColumnNamesRow="1"
+					ExcelFile="C:\inetpub\wwwroot\Help\UploadedFiles\OCAccounts.xlsx"
+					ExcelWorksheet="Sheet1"
+					ID="dlOCAccounts"
+					Type="Excel"
+				/>
+				<MatchCondition
+					DataType="Text"
+					ID="matchUsername"
+					LeftDataColumn="USERNAME"
+					RightDataColumn="Email"
+				/>
+			</Join>
 			<ConditionFilter
-				Condition="&quot;@Data.EMAIL~&quot; = &quot;@Request.iptEmail~&quot;"
+				Condition="&quot;@Data.USERNAME~&quot; = &quot;@Request.iptEmail~&quot;"
 			/>
 		</DataLayer>
 	</LocalData>
@@ -276,7 +299,7 @@ Thank you.
 			</Response>
 		</Procedure>
 		<Procedure
-			Expression="&quot;@Local.EMAIL~&quot; = &quot;&quot;"
+			Expression="&quot;@Request.iptEmail~&quot; = &quot;&quot;"
 			ID="ifEmailEmpty"
 			Type="If"
 			>
@@ -292,7 +315,7 @@ Thank you.
 "
 				EmailBodyType="HTML"
 				EmailSubject="TMA Dashboard Account Request"
-				FromEmailAddress="@Local.Email~"
+				FromEmailAddress="@Request.iptEmail~"
 				ID="emailSupport"
 				ToEmailAddress="support@tmagrain.com"
 				Type="SendMail"
@@ -339,32 +362,20 @@ Thank you.
 			Type="If"
 			>
 			<Procedure
-				Expression="&quot;@Local.Password~&quot; = &quot;&quot;"
-				ID="ifPasswordEmpty"
-				Type="If"
-				>
-				<Response
-					Type="Report"
-					>
-					<Target
-						Report="LoginRequest"
-						Type="Report"
-						>
-						<WaitPage/>
-					</Target>
-					<LinkParams
-						StatusMsg="Required"
-					/>
-				</Response>
-			</Procedure>
-			<Procedure
 				BccEmailAddress="mlyons@mkcoop.com"
 				ConnectionID="connSMTP"
-				EmailBody="Dear @Local.FName~,&lt;br&gt;
-Your login information request has been processed.  Login in to the &lt;a href=&quot;http://info.tmagrain.com&quot;&gt;TMA Dashboard&lt;/a&gt; with these credentials:
+				EmailBody="Dear @Request.iptFname~,
+&lt;br&gt;
+Your login information request has been processed.  Log in to the &lt;a href=&quot;http://info.tmagrain.com&quot;&gt;TMA Dashboard&lt;/a&gt; with these credentials:
 &lt;br&gt;&lt;br&gt;
-Username: @Local.Email~&lt;br&gt;
-Password: @Local.PASSWORD~
+Username: @Request.iptEmail~&lt;br&gt;
+Password: @Local.Password~
+&lt;br&gt;
+&lt;br&gt;
+After you log in successfully you may reset your password by following these steps:&lt;br&gt;
+1. Click on Admin at the top right corner of the screen.&lt;br&gt;
+2. Click on Reset Password. &lt;br&gt;
+3. Enter the required information and click Submit.&lt;br&gt;
 &lt;br&gt;
 &lt;br&gt;
 If you did not request your password, please contact &lt;a href=&quot;mailto:support@tmagrain.com&quot;&gt;TMA Support&lt;/a&gt; immediately.
@@ -377,14 +388,30 @@ Thank you!&lt;br&gt;
 				EmailSubject="TMA Dashboard Login Request"
 				FromEmailAddress="noreply-support@tmagrain.com"
 				ID="sendUserEmail"
-				ToEmailAddress="@Local.EMAIL~"
+				ToEmailAddress="@Request.iptEmail~"
 				Type="SendMail"
-			/>
+				>
+				<IfError>
+					<Response
+						Type="Report"
+						>
+						<Target
+							Report="LoginRequest"
+							Type="Report"
+							>
+							<WaitPage/>
+						</Target>
+						<LinkParams
+							StatusMsg="Success"
+						/>
+					</Response>
+				</IfError>
+			</Procedure>
 			<Response
 				Type="Report"
 				>
 				<Target
-					Report="Default"
+					Report="LoginRequest"
 					Type="Report"
 					>
 					<WaitPage/>

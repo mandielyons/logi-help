@@ -60,7 +60,27 @@ function makeid()
 						ID="panel-heading"
 						>
 						<Label
+							Caption=" "
+							Class="fa fa-chevron-left title"
+							Tooltip="Back to Login"
+							>
+							<Action
+								ID="lnkDashboard1"
+								Type="Link"
+								>
+								<Target
+									ID="lnkTMAGrain1"
+									Link="http://info.tmagrain.com"
+									Type="Link"
+								/>
+							</Action>
+						</Label>
+						<Spaces
+							Size="3"
+						/>
+						<Label
 							Caption="Verify Email Address"
+							Class="panel-title"
 						/>
 					</Division>
 					<Division
@@ -73,6 +93,8 @@ function makeid()
 							>
 							<ResponsiveColumn>
 								<Division
+									Class="well ThemeTextSmall"
+									HtmlDiv="True"
 									ID="divEmail"
 									>
 									<InputHidden
@@ -191,24 +213,26 @@ function makeid()
 				</Division>
 			</ResponsiveColumn>
 		</ResponsiveRow>
-		<ResponsiveRow>
-			<ResponsiveColumn>
-				<Label
-					Caption="Back to Login"
-					>
-					<Action
-						ID="lnkDashboard1"
-						Type="Link"
+		<Remark>
+			<ResponsiveRow>
+				<ResponsiveColumn>
+					<Label
+						Caption="Back to Login"
 						>
-						<Target
-							ID="lnkTMAGrain1"
-							Link="http://info.tmagrain.com"
+						<Action
+							ID="lnkDashboard1"
 							Type="Link"
-						/>
-					</Action>
-				</Label>
-			</ResponsiveColumn>
-		</ResponsiveRow>
+							>
+							<Target
+								ID="lnkTMAGrain1"
+								Link="http://info.tmagrain.com"
+								Type="Link"
+							/>
+						</Action>
+					</Label>
+				</ResponsiveColumn>
+			</ResponsiveRow>
+		</Remark>
 	</Body>
 	<IncludeSharedElement
 		DefinitionFile="_Layout.Shared"

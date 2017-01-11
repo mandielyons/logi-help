@@ -23,7 +23,27 @@
 						ID="panel-heading"
 						>
 						<Label
+							Caption=" "
+							Class="fa fa-chevron-left title"
+							Tooltip="Back to Login"
+							>
+							<Action
+								ID="lnkDashboard1"
+								Type="Link"
+								>
+								<Target
+									ID="lnkTMAGrain1"
+									Link="http://info.tmagrain.com"
+									Type="Link"
+								/>
+							</Action>
+						</Label>
+						<Spaces
+							Size="3"
+						/>
+						<Label
 							Caption="Request Dashboard Account"
+							Class="panel-title"
 						/>
 					</Division>
 					<Division
@@ -31,211 +51,219 @@
 						HtmlDiv="True"
 						ID="panel-body"
 						>
-						<ResponsiveRow>
-							<ResponsiveColumn>
-								<Label
-									Caption="An account request has been sent to TMA Support on your behalf. Someone will contact you in regards to this account.  "
-									Class="ThemeHidden"
-									ID="lblEmail"
-									>
-									<ConditionalClass
-										Class="ThemeTextPositive"
-										Condition="InStr(&quot;@Request.StatusMsg~&quot;,&quot;Required&quot;) &gt; 0"
-									/>
-								</Label>
-								<Label
-									Caption="Your message has been sent.  Our support team will contact you shortly."
-									Class="ThemeHidden"
-									ID="lblSupport"
-									>
-									<ConditionalClass
-										Class="ThemeTextPositive"
-										Condition="InStr(&quot;@Request.StatusMsg~&quot;,&quot;support&quot;) &gt; 0"
-									/>
-								</Label>
-								<Label
-									Class="ThemeHidden"
-									ID="lblError"
-									>
-									<ConditionalClass
-										Class="ThemeErrorText"
-										Condition="InStr(&quot;@Request.StatusMsg~&quot;,&quot;Error:&quot;) &gt; 0"
-									/>
-								</Label>
-								<Label
-									Caption="MKC and TMA employees&apos; login to this program is the same login that is used to login to your PC. Please go back to the login and try again. If this does not work, please contact  "
-									Class="ThemeHidden"
-									ID="lblTMAorMKC"
-									>
-									<ConditionalClass
-										Class="ThemeTextPositive"
-										Condition="InStr(&quot;@Request.StatusMsg~&quot;,&quot;TMA&quot;) &gt; 0"
-									/>
-									<ConditionalClass
-										Class="ThemeTextPositive"
-										Condition="InStr(&quot;@Request.StatusMsg~&quot;,&quot;MKC&quot;) &gt; 0"
-									/>
-								</Label>
-								<Label
-									Caption="support@tmagrain.com"
-									Class="ThemeHidden"
-									ID="lblTMAorMKC2"
-									>
-									<ConditionalClass
-										Class="ThemeTextPositive"
-										Condition="InStr(&quot;@Request.StatusMsg~&quot;,&quot;TMA&quot;) &gt; 0"
-									/>
-									<ConditionalClass
-										Class="ThemeTextPositive"
-										Condition="InStr(&quot;@Request.StatusMsg~&quot;,&quot;MKC&quot;) &gt; 0"
-									/>
-									<Action
-										Type="Link"
-										>
-										<Target
-											ID="lnkSupport2"
-											Link="mailto:support@tmagrain.com"
-											Type="Link"
-										/>
-									</Action>
-								</Label>
-								<Label
-									Caption=" detailing your issue."
-									Class="ThemeHidden"
-									ID="lblTMAorMKC3"
-									>
-									<ConditionalClass
-										Class="ThemeTextPositive"
-										Condition="InStr(&quot;@Request.StatusMsg~&quot;,&quot;TMA&quot;) &gt; 0"
-									/>
-									<ConditionalClass
-										Class="ThemeTextPositive"
-										Condition="InStr(&quot;@Request.StatusMsg~&quot;,&quot;MKC&quot;) &gt; 0"
-									/>
-								</Label>
-								<Label
-									Caption="Your request is being processed.  You will recieve an email shortly."
-									Class="ThemeHidden"
-									ID="lblOC"
-									>
-									<ConditionalClass
-										Class="ThemeTextPositive"
-										Condition="InStr(&quot;@Request.StatusMsg~&quot;,&quot;OC&quot;) &gt; 0"
-									/>
-								</Label>
-								<LineBreak/>
-								<LineBreak/>
-							</ResponsiveColumn>
-						</ResponsiveRow>
-						<ResponsiveRow
-							CollisionBehavior="Overlap"
+						<Division
+							Class="well ThemeTextSmall"
+							HtmlDiv="True"
+							ID="divEntry"
 							>
-							<ResponsiveColumn>
-								<Division
-									ID="divEmail"
-									>
-									<ConditionalClass
+							<ResponsiveRow>
+								<ResponsiveColumn>
+									<Label
+										Caption="An account request has been sent to TMA Support on your behalf. Someone will contact you in regards to this account.  "
 										Class="ThemeHidden"
-										Condition="InStr(&quot;@Request.StatusMsg~&quot;,&quot;support&quot;) &gt; 0"
-									/>
-									<InputText
-										Caption="First Name:"
-										ID="iptFname"
+										ID="lblEmail"
 										>
-										<Validation
-											ErrorMsg="Please enter your first name."
-											Type="Required"
+										<ConditionalClass
+											Class="ThemeTextPositive"
+											Condition="InStr(&quot;@Request.StatusMsg~&quot;,&quot;Required&quot;) &gt; 0"
 										/>
-									</InputText>
-									<LineBreak/>
-									<InputText
-										Caption="Last Name:"
-										ID="iptLname"
+									</Label>
+									<Label
+										Caption="Your message has been sent.  Our support team will contact you shortly."
+										Class="ThemeHidden"
+										ID="lblSupport"
 										>
-										<Validation
-											ErrorMsg="Please enter your last name."
-											Type="Required"
+										<ConditionalClass
+											Class="ThemeTextPositive"
+											Condition="InStr(&quot;@Request.StatusMsg~&quot;,&quot;support&quot;) &gt; 0"
 										/>
-									</InputText>
-									<LineBreak/>
-									<InputEmail
-										Caption="Email:"
-										DefaultValue="@Request.Email~"
-										ID="iptEmail"
-										InputMaxLength="120"
-										InputSize="100px"
-										MultipleAddresses="False"
+									</Label>
+									<Label
+										Class="ThemeHidden"
+										ID="lblError"
 										>
-										<Validation
-											ErrorMsg="Please enter an email address."
-											Type="Required"
+										<ConditionalClass
+											Class="ThemeErrorText"
+											Condition="InStr(&quot;@Request.StatusMsg~&quot;,&quot;Error:&quot;) &gt; 0"
 										/>
-										<Validation
-											ErrorMsg="Please enter a valid email address."
-											Type="Email"
-										/>
-									</InputEmail>
-									<LineBreak/>
-									<InputText
-										Caption="Location:"
-										ID="iptLocation"
+									</Label>
+									<Label
+										Caption="MKC and TMA employees&apos; login to this program is the same login that is used to login to your PC. Please go back to the login and try again. If this does not work, please contact  "
+										Class="ThemeHidden"
+										ID="lblTMAorMKC"
 										>
-										<Validation
-											ErrorMsg="Please enter your location."
-											Type="Required"
+										<ConditionalClass
+											Class="ThemeTextPositive"
+											Condition="InStr(&quot;@Request.StatusMsg~&quot;,&quot;TMA&quot;) &gt; 0"
 										/>
-									</InputText>
-									<LineBreak/>
-									<Button
-										Caption="Submit"
-										ID="btnSubmit"
+										<ConditionalClass
+											Class="ThemeTextPositive"
+											Condition="InStr(&quot;@Request.StatusMsg~&quot;,&quot;MKC&quot;) &gt; 0"
+										/>
+									</Label>
+									<Label
+										Caption="support@tmagrain.com"
+										Class="ThemeHidden"
+										ID="lblTMAorMKC2"
 										>
+										<ConditionalClass
+											Class="ThemeTextPositive"
+											Condition="InStr(&quot;@Request.StatusMsg~&quot;,&quot;TMA&quot;) &gt; 0"
+										/>
+										<ConditionalClass
+											Class="ThemeTextPositive"
+											Condition="InStr(&quot;@Request.StatusMsg~&quot;,&quot;MKC&quot;) &gt; 0"
+										/>
 										<Action
-											ID="SQLTasks"
-											Process="SQLTasks"
-											TaskID="getLoginInfo"
-											Type="Process"
-											Validate="True"
+											Type="Link"
 											>
-											<WaitPage/>
-											<LinkParams/>
+											<Target
+												ID="lnkSupport2"
+												Link="mailto:support@tmagrain.com"
+												Type="Link"
+											/>
 										</Action>
+									</Label>
+									<Label
+										Caption=" detailing your issue."
+										Class="ThemeHidden"
+										ID="lblTMAorMKC3"
+										>
+										<ConditionalClass
+											Class="ThemeTextPositive"
+											Condition="InStr(&quot;@Request.StatusMsg~&quot;,&quot;TMA&quot;) &gt; 0"
+										/>
+										<ConditionalClass
+											Class="ThemeTextPositive"
+											Condition="InStr(&quot;@Request.StatusMsg~&quot;,&quot;MKC&quot;) &gt; 0"
+										/>
+									</Label>
+									<Label
+										Caption="Your request is being processed.  You will recieve an email shortly."
+										Class="ThemeHidden"
+										ID="lblOC"
+										>
+										<ConditionalClass
+											Class="ThemeTextPositive"
+											Condition="InStr(&quot;@Request.StatusMsg~&quot;,&quot;OC&quot;) &gt; 0"
+										/>
+									</Label>
+									<LineBreak/>
+									<LineBreak/>
+								</ResponsiveColumn>
+							</ResponsiveRow>
+							<ResponsiveRow
+								CollisionBehavior="Overlap"
+								>
+								<ResponsiveColumn>
+									<Division
+										ID="divEmail"
+										>
 										<ConditionalClass
 											Class="ThemeHidden"
-											Condition="InStr(&quot;@Request.StatusMsg~&quot;,&quot;Windows&quot;) &gt; 0"
+											Condition="InStr(&quot;@Request.StatusMsg~&quot;,&quot;support&quot;) &gt; 0"
 										/>
-									</Button>
-								</Division>
-								<LineBreak/>
-								<LineBreak/>
-							</ResponsiveColumn>
-							<ResponsiveColumn/>
-						</ResponsiveRow>
+										<InputText
+											Caption="First Name:"
+											ID="iptFname"
+											>
+											<Validation
+												ErrorMsg="Please enter your first name."
+												Type="Required"
+											/>
+										</InputText>
+										<LineBreak/>
+										<InputText
+											Caption="Last Name:"
+											ID="iptLname"
+											>
+											<Validation
+												ErrorMsg="Please enter your last name."
+												Type="Required"
+											/>
+										</InputText>
+										<LineBreak/>
+										<InputEmail
+											Caption="Email:"
+											DefaultValue="@Request.Email~"
+											ID="iptEmail"
+											InputMaxLength="120"
+											InputSize="100px"
+											MultipleAddresses="False"
+											>
+											<Validation
+												ErrorMsg="Please enter an email address."
+												Type="Required"
+											/>
+											<Validation
+												ErrorMsg="Please enter a valid email address."
+												Type="Email"
+											/>
+										</InputEmail>
+										<LineBreak/>
+										<InputText
+											Caption="Location:"
+											ID="iptLocation"
+											>
+											<Validation
+												ErrorMsg="Please enter your location."
+												Type="Required"
+											/>
+										</InputText>
+										<LineBreak/>
+										<Button
+											Caption="Submit"
+											ID="btnSubmit"
+											>
+											<Action
+												ID="SQLTasks"
+												Process="SQLTasks"
+												TaskID="getLoginInfo"
+												Type="Process"
+												Validate="True"
+												>
+												<WaitPage/>
+												<LinkParams/>
+											</Action>
+											<ConditionalClass
+												Class="ThemeHidden"
+												Condition="InStr(&quot;@Request.StatusMsg~&quot;,&quot;Windows&quot;) &gt; 0"
+											/>
+										</Button>
+									</Division>
+									<LineBreak/>
+									<LineBreak/>
+								</ResponsiveColumn>
+								<ResponsiveColumn/>
+							</ResponsiveRow>
+						</Division>
 					</Division>
 				</Division>
 			</ResponsiveColumn>
 		</ResponsiveRow>
-		<ResponsiveRow>
-			<ResponsiveColumn>
-				<LineBreak
-					LineCount="2"
-				/>
-				<Label
-					Caption="Back to Login"
-					>
-					<Action
-						ID="lnkDashboard1"
-						Type="Link"
+		<Remark>
+			<ResponsiveRow>
+				<ResponsiveColumn>
+					<LineBreak
+						LineCount="2"
+					/>
+					<Label
+						Caption="Back to Login"
 						>
-						<Target
-							ID="lnkTMAGrain1"
-							Link="http://info.tmagrain.com"
+						<Action
+							ID="lnkDashboard1"
 							Type="Link"
-						/>
-					</Action>
-				</Label>
-			</ResponsiveColumn>
-		</ResponsiveRow>
+							>
+							<Target
+								ID="lnkTMAGrain1"
+								Link="http://info.tmagrain.com"
+								Type="Link"
+							/>
+						</Action>
+					</Label>
+				</ResponsiveColumn>
+			</ResponsiveRow>
+		</Remark>
 		<IncludeScript
 			IncludedScript="document.onkeyup = function keyPress(e) 
 {	
